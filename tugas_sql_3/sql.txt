@@ -1,0 +1,10 @@
+1. SELECT * FROM 'obat'
+2. SELECT nama_obat FROM 'obat'
+3. SELECT nama_obat, harga FROM 'obat'
+4. SELECT tanggal_exp FROM 'obat'
+5. SELECT * FROM 'obat' WHERE harga > 5000
+6. SELECT * FROM 'obat' WHERE harga >= 10000
+7. SELECT * FROM 'pembeli'
+8. SELECT alamat FROM 'pembeli'
+9. SELECT alamat, no_tlp FROM 'pembeli'
+10. SELECT nama_obat,alamat, no_tlp FROM 'pembeli'
