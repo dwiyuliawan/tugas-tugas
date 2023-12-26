@@ -17,12 +17,14 @@ class MemberSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
+        $jeniskelamin = ['L','P'];
 
         for ($i=0; $i<20; $i++) {
             $member = new Member;
 
             $member->name = $faker->name;
-            $member->gender = $faker->randomElement(['L', 'P']);
+            // $member->gender =  $faker->randomElement(['L', 'P']);
+            $member->gender = $jeniskelamin[array_rand($jeniskelamin)];
             $member->phone_number = '0898' .$faker->randomNumber(8);
             $member->address = $faker->address;
             $member->email = $faker->email;
