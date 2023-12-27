@@ -188,22 +188,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{ url('transaction')}}" class="nav-link {{ request()->is('transaction') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-angle-down"></i>
-              <p>
-                Transaksi
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('detail')}}" class="nav-link {{ request()->is('detail') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-angle-right"></i>
-              <p>
-                Detail Transaksi
-              </p>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
