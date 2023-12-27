@@ -149,26 +149,26 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ url('transaction')}}" class="nav-link {{ request()->is('transaction') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-money-bill"></i>
+              <p>
+                Transaction
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ url('book')}}" class="nav-link {{ request()->is('book') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Book
+                Buku
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('catalog')}}" class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-edit"></i>
+            <a href="{{ url('member')}}" class="nav-link {{ request()->is('member') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-user"></i>
               <p>
-                Catalog
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('author')}}" class="nav-link {{ request()->is('author') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-user-graduate"></i>
-              <p>
-                Pengarang
+                Anggota
               </p>
             </a>
           </li>
@@ -181,10 +181,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('member')}}" class="nav-link {{ request()->is('member') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-user"></i>
+            <a href="{{ url('author')}}" class="nav-link {{ request()->is('author') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-user-graduate"></i>
               <p>
-                Anggota
+                Pengarang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('catalog')}}" class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>
+                Catalog
               </p>
             </a>
           </li>
