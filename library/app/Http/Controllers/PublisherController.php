@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,8 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        return view('admin.publisher.publisher');
+        $publishers = Publisher::all();
+        return view('admin.publisher.publisher', compact('publishers'));
     }
 
     /**
@@ -35,7 +40,17 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request,[
+            'name'=>['required'],
+            'email'=>['required'],
+            'address' =>['required'],
+            'phone_number'=>['required'],
+        ]);
+
+        Publisher::create($request->all());
+
+        return redirect('publishers');
     }
 
     /**
@@ -69,7 +84,17 @@ class PublisherController extends Controller
      */
     public function update(Request $request, Publisher $publisher)
     {
-        //
+        $this->validate($request,[
+            'name',
+            'email',
+            'address',
+            'phone_number'
+            =>['required'],
+        ]);
+
+        $publisher->update($request->all());
+
+        return redirect('publishers');
     }
 
     /**
@@ -80,6 +105,8 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->delete();
+
+        return redirect('publishers');
     }
 }
