@@ -2,41 +2,46 @@
 @section('header', 'Pengarang')
 
 @section('css')
-
+ <!-- DataTables -->
+ <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
 
 @section('content')
 <div id="controller">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
                 <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Create new Pengarang</a>
                 </div>
 
-                <div class="card-body">
-                    <table class="table table-bordered">
+                <div class="card-body " >
+                    <table id="data" class="table table-bordered table-striped" >
                         <thead>
-                            <tr bgcolor="blue">
-                                <th style="width: 10px">No.</th>
+                            <tr>
+                                <th class="text-center" width="30px">No.</th>
                                 <th class="text-center">Nama</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Alamat</th>
                                 <th class="text-center">Telepon</th>
-                                <th colspan=2 class="text-center">Aksi</th>
+                                <th class="text-center">Aksi</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($authors as $key => $author)
                             <tr>
-                                <td class="text-center">{{ $key+1}}</td>
+                                <td class="text-center">{{ $key+1}}.</td>
                                 <td>{{ $author->name}}</td>
                                 <td>{{ $author->email}}</td>
                                 <td >{{ $author->address}}</td>
                                 <td class="text-center">{{ $author->phone_number}}</td>
-                                <td><a href="#" @click="editData({{ $author }})" class="btn btn-warning btn-sm">Edit</a></td>
-                                <td><a href="#" @click="deleteData({{ $author->id }})" class="btn btn-danger btn-sm">Delete</a></td>     
+                                <td class="text-center">
+                                    <a href="#" @click="editData({{ $author }})" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-danger btn-sm">Delete</a>
+                                </td>    
                             </tr>
                             @endforeach
                         </tbody>
@@ -93,6 +98,25 @@
 @endsection
 
 @section('js')
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script type="text/javascript">
+  $(function () {
+    $("#data").DataTable();
+  });
+</script>
+<!-- CRUD VUE JS -->
     <script type="text/javascript">
         var controller = new Vue({
             el : '#controller',

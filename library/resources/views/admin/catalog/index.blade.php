@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 @section('header', 'Katalog')
 
+@section('css')
+
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -20,7 +24,7 @@
             </div>
 
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table id="datatable" class="table table-hover text-nowrap">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -68,3 +72,7 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+
+  @endsection
