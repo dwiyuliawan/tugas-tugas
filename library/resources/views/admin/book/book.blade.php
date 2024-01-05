@@ -149,7 +149,7 @@
             deleteData(id) {
                 this.id = id;
                 if (confirm("Apakah anda yakin ingin menghapus halaman ini")) {
-                    axios.post(this.id, {_method: 'DELETE'}).then(respone => {
+                    axios.post('{{ url('books') }}'+'/'+this.id, {_method: 'DELETE'}).then(respone => {
                         location.reload();
                     });
                 }
