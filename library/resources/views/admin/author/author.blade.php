@@ -18,33 +18,18 @@
                 </div>
 
                 <div class="card-body " >
-                    <table id="data" class="table table-bordered table-striped" >
+                    <table id="datatable" class="table table-bordered table-striped" >
                         <thead>
                             <tr>
-                                <th class="text-center" width="30px">No.</th>
-                                <th class="text-center">Nama</th>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Alamat</th>
-                                <th class="text-center">Telepon</th>
-                                <th class="text-center">Aksi</th>
+                                <th width="30px">No.</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Telepon</th>
+                                <th>Alamat</th>
+                                <th class="text-right">Aksi</th>
                                 
                             </tr>
                         </thead>
-                        <tbody>
-                        @foreach($authors as $key => $author)
-                            <tr>
-                                <td class="text-center">{{ $key+1}}.</td>
-                                <td>{{ $author->name}}</td>
-                                <td>{{ $author->email}}</td>
-                                <td >{{ $author->address}}</td>
-                                <td class="text-center">{{ $author->phone_number}}</td>
-                                <td class="text-center">
-                                    <a href="#" @click="editData({{ $author }})" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="#" @click="deleteData({{ $author->id }})" class="btn btn-danger btn-sm">Delete</a>
-                                </td>    
-                            </tr>
-                            @endforeach
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -54,7 +39,7 @@
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" :action="actionUrl" autocomplete="off">
+                <form method="post" :action="actionUrl" autocomplete="off" @submit="submitForm($event, data.id)">
                     <div class="modal-header">
 
                         <h4 class="modal-title">Pengarang</h4>
@@ -77,12 +62,12 @@
                             <input type="text" class="form-control" name="email" :value="data.email" required="">
                         </div>
                         <div class="form-group">
-                            <label>Alamat</label>
-                            <input type="text" class="form-control" name="address" :value="data.address" required="">
-                        </div>
-                        <div class="form-group">
                             <label>Telepon</label>
                             <input type="text" class="form-control" name="phone_number" :value="data.phone_number" required="">
+                        </div>
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <input type="text" class="form-control" name="address" :value="data.address" required="">
                         </div>
     
                     </div>
@@ -112,11 +97,89 @@
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script type="text/javascript">
+    var actionUrl = '{{ url('authors') }}';
+    var apiUrl = '{{ url('api/authors')}}';
+
+    var columns = [
+        {data: 'DT_RowIndex', class: 'text-center', orderable: true},
+        {data: 'name', class: 'text-center', orderable: true},
+        {data: 'email', class: 'text-center', orderable: true},
+        {data: 'phone_number', class: 'text-center', orderable: true},
+        {data: 'address', class: 'text-center', orderable: true},
+        {render: function (index, row, data, meta) {
+            return`
+            <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
+                Edit
+            </a>
+            <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">
+                Delete
+            </a>`;
+        }, orderable: false, width: '200px', class: 'text-center'},
+    ];
+
+    var controller = new Vue({
+        el: '#controller',
+        data: {
+            datas: [],
+            data: {},
+            actionUrl,
+            apiUrl,
+            editStatus: false,
+        },
+        mounted : function () {
+            this.datatable();
+        },
+        methods: {
+            datatable() {
+                const _this = this;
+                _this.table = $('#datatable').DataTable({
+                    ajax: {
+                        url : _this.apiUrl,
+                        type: 'GET',
+                    },
+                    columns
+                }).on('xhr', function(){
+                    _this.datas = _this.table.ajax.json().data;
+                });
+            },
+            addData() {
+                this.data = {};
+                this.actionUrl = '{{ url('authors')}}';
+                this.editStatus = false;
+                $('#modal-default').modal();
+            },
+            editData(event, row) {
+                this.data = this.datas[row];
+                this.editStatus = true;
+                $('#modal-default').modal();
+            },
+            deleteData(event, id) {
+                if (confirm("Apakah anda yakin ingin menghapus data ini?")) {
+                    $(event.target).parents('tr').remove();
+                    axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(respone => {
+                        alert('Data has been removed');
+                    });
+                }
+            },
+            submitForm(event, id) {
+                event.preventDefault();
+                const _this = this;
+                var actionUrl = ! this.editStatus ? this.actionUrl  : this.actionUrl+'/'+id;
+                axios.post(actionUrl, new FormData($(event.target)[0])).then(response => {
+                    $('#modal-default').modal('hide');
+                    _this.table.ajax.reload();
+                });
+            },
+        }
+    });
+</script>
+
+ <!-- <script type="text/javascript">
   $(function () {
-    $("#data").DataTable();
+    $("#datatable").DataTable();
   });
 </script>
-<!-- CRUD VUE JS -->
+ CRUD VUE JS 
     <script type="text/javascript">
         var controller = new Vue({
             el : '#controller',
@@ -151,5 +214,5 @@
                 }
             }
         });
-    </script>
-@endsection
+    </script>  -->
+@endsection 

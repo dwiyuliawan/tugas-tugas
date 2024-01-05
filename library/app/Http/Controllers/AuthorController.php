@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,16 @@ class AuthorController extends Controller
     public function index()
     {
 
-        $authors = Author::all();
+        return view('admin.author.author');
 
-        return view('admin.author.author', compact('authors'));
+    }
+
+    public function api() 
+    {
+            $authors = Author::all();
+            $datatables = datatables()->of($authors)->addIndexColumn();
+
+            return $datatables->make(true);
     }
 
     /**
