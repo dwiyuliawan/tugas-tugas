@@ -33,7 +33,7 @@
         <div class="modal fade" id="modal-default">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="{{ url('books')}}" autocomplete="off">
+                    <form method="post" :action="actionUrl" autocomplete="off">
                         <div class="modal-header">
                             <h4 class="modal-title">Buku</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -142,11 +142,12 @@
             },
             editData(book) { 
                 this.book = book;
+                this.actionUrl = '{{ url('books') }}'+'/'+book.id;
                 this.editStatus = true;
                 $('#modal-default').modal();
             },
             deleteData(id) {
-                this.book.id = id;
+                this.id = id;
                 if (confirm("Apakah anda yakin ingin menghapus halaman ini")) {
                     axios.post(this.id, {_method: 'DELETE'}).then(respone => {
                         location.reload();
