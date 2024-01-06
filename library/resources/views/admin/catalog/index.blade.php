@@ -47,19 +47,23 @@
                             <td>{{ $key+1}}.</td>
                             <td>{{ $catalog->name}}</td>
                             <td class="text-center">{{ count($catalog->books)}}</td>
-                            <td class="text-center">{{date('H:i:s - d/m/Y', strtotime($catalog->created_at)) }}</td>
-                            <td class="text-center"><span class="tag tag-success">{{date('H:i:s - d/m/Y', strtotime($catalog->updated_at)) }}</span></td>
+                            <td class="text-center">{{convert_date($catalog->created_at) }}</td>
+                            <td class="text-center"><span class="tag tag-success">{{convert_date($catalog->updated_at) }}</span></td>
                             <td>
-                                <td class="text-right">
+                                <td >
                                     <a href="{{ url('catalogs/'. $catalog->id. '/edit')}}" class="btn btn-warning btn-sm">Edit</a>
                                 </td>
-                                <td class="text-center">
+                                <td>
                                     <form action="{{ url('catalogs', ['id' => $catalog->id])}}" method="post">
                                         <input class="btn btn-danger btn-sm" type="submit" value="Delete" onclick="return confirm('apakah kamu yakin ingin menghapus data ini?')">
                                         @method('delete')
                                         @csrf
                                     </form>
                                 </td>
+                                <td>
+                                    <a href="{{ url('print_catalog/'.$catalog->id)}}" class="btn btn-primary btn-sm" target="_blank">Print</a>
+                                </td>
+                                
                             </td>
                         </tr>
                         @endforeach

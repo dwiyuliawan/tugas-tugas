@@ -26,6 +26,7 @@
                                 <th>Email</th>
                                 <th>Telepon</th>
                                 <th>Alamat</th>
+                                <th>Create</th>
                                 <th class="text-right">Aksi</th>
                                 
                             </tr>
@@ -106,6 +107,7 @@
         {data: 'email', class: 'text-center', orderable: true},
         {data: 'phone_number', class: 'text-center', orderable: true},
         {data: 'address', class: 'text-center', orderable: true},
+        {data: 'date', class: 'text-center', orderable: true},
         {render: function (index, row, data, meta) {
             return`
             <a href="#" class="btn btn-warning btn-sm" onclick="controller.editData(event, ${meta.row})">
