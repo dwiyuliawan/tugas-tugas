@@ -48,5 +48,11 @@ Route::get('/api/publishers', [App\Http\Controllers\PublisherController::class, 
 Route::get('/api/members', [App\Http\Controllers\MemberController::class, 'api']);
 Route::get('/api/books', [App\Http\Controllers\BookController::class, 'api']);
 
+Route::get('/dashboards', [App\Http\Controllers\AdminController::class, 'dashboard']);
+Route::get('/buku', [App\Http\Controllers\AdminController::class, 'buku']);
+Route::get('/anggota', [App\Http\Controllers\AdminController::class, 'anggota']);
+Route::get('/penerbit', [App\Http\Controllers\AdminController::class, 'penerbit']);
+Route::get('/peminjam', [App\Http\Controllers\AdminController::class, 'peminjam']);
+
 
 
