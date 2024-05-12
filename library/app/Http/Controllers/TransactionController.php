@@ -44,6 +44,15 @@ class TransactionController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
+
+     public function api() 
+    {
+            $trans = Transaction::with('member')->all();
+            $datatables = datatables()->of($trans)->addIndexColumn();
+
+            return $datatables->make(true);
+    }
+
     public function show(Transaction $transaction)
     {
         //
