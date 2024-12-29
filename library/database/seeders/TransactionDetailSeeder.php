@@ -2,30 +2,28 @@
 
 namespace Database\Seeders;
 
-use Faker\Factory as Faker;
-use Illuminate\Database\Seeder;
-use App\Models\TransactionDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+use Faker\Factory as Faker;
+use App\Models\TransactionDetail;
 
 class TransactionDetailSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $faker = Faker::create();
+        for ($i=0; $i < 5; $i++) { 
+            $transactionDetail = new TransactionDetail;
 
-        for ($i=0; $i<20; $i++) {
-            $transactiondetail = new TransactionDetail;
+            $transactionDetail->transaction_id = rand(1,5);
+            $transactionDetail->book_id = rand(2,5);
+            $transactionDetail->qty = rand(5,30);
 
-            $transactiondetail->transaction_id = rand(1,20);
-            $transactiondetail->book_id = rand(1,20);
-            $transactiondetail->qty = rand(1,20);
-
-            $transactiondetail->save();
+            $transactionDetail->save();
         }
     }
 }

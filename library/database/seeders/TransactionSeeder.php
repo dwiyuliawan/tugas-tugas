@@ -2,28 +2,27 @@
 
 namespace Database\Seeders;
 
-use App\Models\Transaction;
-use Faker\Factory as Faker;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+use Faker\Factory as Faker;
+use App\Models\Transaction;
 
 class TransactionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $faker = Faker::create();
-
-        for ($i=0; $i<20; $i++) {
+        for ($i=0; $i < 10; $i++) { 
             $transaction = new Transaction;
 
             $transaction->member_id = rand(1,10);
-            $transaction->date_start = $faker->dateTimeThisCentury()->format('Y-m-t');
-            $transaction->date_end = $faker->dateTimeThisCentury()->format('Y-m-t');
+            $transaction->date_start = $faker->date;
+            $transaction->date_end = $faker->date;
+            $transaction->status = $faker->randomElement(['Finished', 'Borrowed']);
 
             $transaction->save();
         }

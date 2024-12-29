@@ -7,20 +7,21 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('admin.transaction.transaction');
+        return view('admin.transaction.index');
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -29,9 +30,6 @@ class TransactionController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -40,19 +38,7 @@ class TransactionController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
      */
-
-     public function api() 
-    {
-            $trans = Transaction::with('member')->all();
-            $datatables = datatables()->of($trans)->addIndexColumn();
-
-            return $datatables->make(true);
-    }
-
     public function show(Transaction $transaction)
     {
         //
@@ -60,9 +46,6 @@ class TransactionController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
      */
     public function edit(Transaction $transaction)
     {
@@ -71,10 +54,6 @@ class TransactionController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Transaction $transaction)
     {
@@ -83,9 +62,6 @@ class TransactionController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Transaction $transaction)
     {

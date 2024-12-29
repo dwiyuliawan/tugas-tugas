@@ -8,16 +8,14 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('publishers', function (Blueprint $table) {
+        Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->string('name',64);
+            $table->string('name', 64);
             $table->string('email', 64);
-            $table->char('phone_number', 14);
+            $table->char('phone_number', 15);
             $table->text('address');
             $table->timestamps();
         });
@@ -25,11 +23,9 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('publishers');
+        Schema::dropIfExists('authors');
     }
 };
